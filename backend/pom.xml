@@ -113,16 +113,24 @@
 				</configuration>
 			</plugin>
 			<plugin>
-				<groupId>org.springframework.boot</groupId>
-				<artifactId>spring-boot-maven-plugin</artifactId>
-				<configuration>
-					<excludes>
-						<exclude>
-							<groupId>org.projectlombok</groupId>
-							<artifactId>lombok</artifactId>
-						</exclude>
-					</excludes>
-				</configuration>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-maven-plugin</artifactId>
+			<version>3.9.11</version> <!-- or your Spring Boot version -->
+			<configuration>
+				<excludes>
+				<exclude>
+					<groupId>org.projectlombok</groupId>
+					<artifactId>lombok</artifactId>
+				</exclude>
+				</excludes>
+			</configuration>
+			<executions>
+				<execution>
+				<goals>
+					<goal>repackage</goal> <!-- This is important for creating an executable JAR -->
+				</goals>
+				</execution>
+			</executions>
 			</plugin>
 		</plugins>
 	</build>
