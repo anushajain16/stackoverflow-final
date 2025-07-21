@@ -1,0 +1,3 @@
+[build]
+buildCommand = "cd backend && ./mvnw clean install"
+startCommand = "cd backend && java -jar target/*.jar"
