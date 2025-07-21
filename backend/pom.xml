@@ -115,7 +115,7 @@
 			<plugin>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-maven-plugin</artifactId>
-			<version>3.9.11</version> <!-- or your Spring Boot version -->
+			<version>3.2.5</version> <!-- or your Spring Boot version -->
 			<configuration>
 				<excludes>
 				<exclude>
