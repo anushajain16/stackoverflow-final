@@ -28,7 +28,7 @@ export default function AnswerCard({ answer, onEdit, onDelete }) {
     const userId = localStorage.getItem("userId");
 
     await axios.put(
-      `http://localhost:9090/stackoverflow/answer/${answer.id}/vote?vote=${vote}&userId=${userId}`,
+      `${process.env.REACT_APP_API_BASE_URL}/stackoverflow/answer/${answer.id}/vote?vote=${vote}&userId=${userId}`,
       {},
       {
         headers: {

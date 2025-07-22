@@ -20,7 +20,7 @@ const SavedPage = () => {
       const orgId = localStorage.getItem("orgId");
 
       const response = await axios.get(
-        "http://localhost:9090/stackoverflow/saved",
+        `${process.env.REACT_APP_API_BASE_URL}/stackoverflow/saved`,
         {
           headers: {
             Authorization: `Bearer ${token}`,

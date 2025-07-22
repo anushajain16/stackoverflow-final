@@ -25,7 +25,7 @@ const Home = () => {
     try {
       const token = localStorage.getItem('token');
       const org_id = localStorage.getItem('orgId');
-      const response = await axios.get(`http://localhost:9090/stackoverflow/questions/${org_id}`,{
+      const response = await axios.get(`${process.env.REACT_APP_API_BASE_URL}/stackoverflow/questions/${org_id}`,{
          headers: {
           Authorization: `Bearer ${token}`
         }
@@ -73,7 +73,7 @@ const Home = () => {
   const viewCount = async(id) =>{
     try{
       const token = localStorage.getItem("token")
-      await axios.put(`http://localhost:9090/stackoverflow/questions/${id}/view`,
+      await axios.put(`${process.env.REACT_APP_API_BASE_URL}/stackoverflow/questions/${id}/view`,
       {},
       {headers: { Authorization: `Bearer ${token}` }})
     } catch(err){

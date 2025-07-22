@@ -17,7 +17,7 @@ export default function MyAccount() {
         const token = localStorage.getItem("token")
         const userId = localStorage.getItem("userId")
 
-        const res = await axios.get(`http://localhost:9090/stackoverflow/${userId}/stats`, {
+        const res = await axios.get(`${process.env.REACT_APP_API_BASE_URL}/stackoverflow/${userId}/stats`, {
           headers: {
             Authorization: `Bearer ${token}`,
           },

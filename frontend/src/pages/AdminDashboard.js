@@ -19,7 +19,7 @@ const AdminDashboard = () => {
         const token = localStorage.getItem("token")
         const orgId = localStorage.getItem("orgId")
 
-        const res = await axios.get(`http://localhost:9090/stackoverflow/admin/${orgId}/stats`, {
+        const res = await axios.get(`${process.env.REACT_APP_API_BASE_URL}/stackoverflow/admin/${orgId}/stats`, {
           headers: {
             Authorization: `Bearer ${token}`,
           },

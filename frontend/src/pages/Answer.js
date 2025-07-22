@@ -30,7 +30,7 @@ export default function Answer() {
   const fetchQuestionDetails = async () => {
     try {
       const token = localStorage.getItem("token")
-      const response = await axios.get(`http://localhost:9090/stackoverflow/answer/${id}`, {
+      const response = await axios.get(`${process.env.REACT_APP_API_BASE_URL}/stackoverflow/answer/${id}`, {
         headers: { Authorization: `Bearer ${token}` },
       })
       setQuestionData(response.data)
@@ -49,7 +49,7 @@ export default function Answer() {
     try {
       const token = localStorage.getItem("token")
       await axios.post(
-        `http://localhost:9090/stackoverflow/answer`,
+        `${process.env.REACT_APP_API_BASE_URL}/stackoverflow/answer`,
         {  body: answer,                      
         user: { id: userId },              
         questions: { id: Number(id) } },
@@ -76,7 +76,7 @@ export default function Answer() {
 const handleRelatedQuestions = async (token, orgId) => {
   try {
     const response = await axios.get(
-      `http://localhost:9090/stackoverflow/categories/${questionData.cat}/org/${orgId}`,
+      `${process.env.REACT_APP_API_BASE_URL}/stackoverflow/categories/${questionData.cat}/org/${orgId}`,
       {
         headers: { Authorization: `Bearer ${token}` },
       }
@@ -95,7 +95,7 @@ const handleRelatedQuestions = async (token, orgId) => {
       const userId = localStorage.getItem("userId");
       const orgId = localStorage.getItem("orgId")
 
-      const response = await axios.get("http://localhost:9090/stackoverflow/saved", {
+      const response = await axios.get(`${process.env.REACT_APP_API_BASE_URL}/stackoverflow/saved`, {
         headers: {
           Authorization: `Bearer ${token}`,
           userId,
@@ -120,7 +120,7 @@ const handleRelatedQuestions = async (token, orgId) => {
   try {
     if (!isSaved) {
       await axios.post(
-        `http://localhost:9090/stackoverflow/saved/${id}`,
+        `${process.env.REACT_APP_API_BASE_URL}/stackoverflow/saved/${id}`,
         {},
         {
           headers: {
@@ -131,7 +131,7 @@ const handleRelatedQuestions = async (token, orgId) => {
       );
       setIsSaved(true);
     } else {
-      await axios.delete(`http://localhost:9090/stackoverflow/unsave/${Number(id)}`, {
+      await axios.delete(`${process.env.REACT_APP_API_BASE_URL}/stackoverflow/unsave/${Number(id)}`, {
         headers: {
           Authorization: `Bearer ${token}`,
           userId,
@@ -154,7 +154,7 @@ const handleRelatedQuestions = async (token, orgId) => {
     const token = localStorage.getItem("token")
     try {
       await axios.put(
-        `http://localhost:9090/stackoverflow/questions/${id}`,
+        `${process.env.REACT_APP_API_BASE_URL}/stackoverflow/questions/${id}`,
         {
           title: editedTitle,
           body: editedBody,
@@ -174,7 +174,7 @@ const handleRelatedQuestions = async (token, orgId) => {
     const token = localStorage.getItem("token")
     const orgId = localStorage.getItem("orgId")
     try {
-      await axios.delete(`http://localhost:9090/stackoverflow/questions/${id}`, {
+      await axios.delete(`${process.env.REACT_APP_API_BASE_URL}/stackoverflow/questions/${id}`, {
         headers: { Authorization: `Bearer ${token}` },
       })
       navigate(`/${orgId}`) // Go to homepage or questions list after deletion
@@ -193,7 +193,7 @@ const handleRelatedQuestions = async (token, orgId) => {
     try {
       const token = localStorage.getItem("token")
       await axios.put(
-        `http://localhost:9090/stackoverflow/answer/${editingAnswerId}`,
+        `${process.env.REACT_APP_API_BASE_URL}/stackoverflow/answer/${editingAnswerId}`,
         { body: editingText },
         { headers: { Authorization: `Bearer ${token}` } }
       )
@@ -208,7 +208,7 @@ const handleRelatedQuestions = async (token, orgId) => {
   const handleDeleteAnswer = async (answerId) => {
     try {
       const token = localStorage.getItem("token")
-      await axios.delete(`http://localhost:9090/stackoverflow/answer/${answerId}`, {
+      await axios.delete(`${process.env.REACT_APP_API_BASE_URL}/stackoverflow/answer/${answerId}`, {
         headers: { Authorization: `Bearer ${token}` }
       })
       fetchQuestionDetails()
@@ -223,7 +223,7 @@ const handleRelatedQuestions = async (token, orgId) => {
     const userId = localStorage.getItem("userId");
 
     await axios.put(
-      `http://localhost:9090/stackoverflow/questions/${id}/vote?vote=${vote}&userId=${userId}`,
+      `${process.env.REACT_APP_API_BASE_URL}/stackoverflow/questions/${id}/vote?vote=${vote}&userId=${userId}`,
       {},
       {
         headers: {

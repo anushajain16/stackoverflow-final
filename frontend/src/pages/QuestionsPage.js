@@ -23,7 +23,7 @@ export default function QuestionsPage() {
         const token = localStorage.getItem("token");
 
         const response = await axios.get(
-          `http://localhost:9090/stackoverflow/categories/${category}/org/${orgId}`,
+          `${process.env.REACT_APP_API_BASE_URL}/stackoverflow/categories/${category}/org/${orgId}`,
           {
             headers: {
               Authorization: `Bearer ${token}`,

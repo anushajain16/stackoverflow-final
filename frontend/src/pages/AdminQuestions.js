@@ -34,7 +34,7 @@ export function AdminQuestions() {
         const token = localStorage.getItem("token")
         const userId = localStorage.getItem("userId")
         const orgId = localStorage.getItem("orgId")
-        const response = await axios.get(`http://localhost:9090/stackoverflow/questions/${orgId}`, {
+        const response = await axios.get(`${process.env.REACT_APP_API_BASE_URL}/stackoverflow/questions/${orgId}`, {
             headers: { Authorization: `Bearer ${token}` },
         })
         setQuestions(response.data)
@@ -55,7 +55,7 @@ export function AdminQuestions() {
 
         try {
             const token = localStorage.getItem("token");
-            await axios.delete(`http://localhost:9090/stackoverflow/admin/questions/${id}`, {
+            await axios.delete(`${process.env.REACT_APP_API_BASE_URL}/stackoverflow/admin/questions/${id}`, {
             headers: { Authorization: `Bearer ${token}` },
             });
 

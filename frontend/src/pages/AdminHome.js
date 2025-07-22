@@ -17,7 +17,7 @@ const AdminHome = () => {
       const token = localStorage.getItem("token")
       const userId = localStorage.getItem("userId")
       const orgId = localStorage.getItem("orgId")
-      const response = await axios.get(`http://localhost:9090/stackoverflow/admin/user`, {
+      const response = await axios.get(`${process.env.REACT_APP_API_BASE_URL}/stackoverflow/admin/user`, {
         params: { userId: userId, organisationId: orgId },
         headers: { Authorization: `Bearer ${token}` },
       })
@@ -38,7 +38,7 @@ const AdminHome = () => {
       return
     }
     try {
-      const response = await axios.get(`http://localhost:9090/stackoverflow/admin/user/search`, {
+      const response = await axios.get(`${process.env.REACT_APP_API_BASE_URL}/stackoverflow/admin/user/search`, {
         params: { query: text, organisationId: orgId },
         headers: { Authorization: `Bearer ${token}` },
       })

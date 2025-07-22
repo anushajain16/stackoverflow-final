@@ -37,7 +37,7 @@ export default function SignUpPage() {
           }
         };
 
-        await axios.post('http://localhost:9090/stackoverflow/signup/user', userPayload);
+        await axios.post(`${process.env.REACT_APP_API_BASE_URL}/stackoverflow/signup/user`, userPayload);
         setMessage('User registered and logged in successfully!');
         setTimeout(() => navigate('/login'), 1200);
 
@@ -56,7 +56,7 @@ export default function SignUpPage() {
     }
     try {
         // Step 1: Register Organisation
-        const orgResponse = await axios.post('http://localhost:9090/stackoverflow/signup/admin', {
+        const orgResponse = await axios.post(`${process.env.REACT_APP_API_BASE_URL}/stackoverflow/signup/admin`, {
           name: orgName
         });
 
@@ -78,7 +78,7 @@ export default function SignUpPage() {
           }
         };
 
-        await axios.post('http://localhost:9090/stackoverflow/signup/user', adminPayload);
+        await axios.post(`${process.env.REACT_APP_API_BASE_URL}/stackoverflow/signup/user`, adminPayload);
         setMessage('Admin registered and logged in successfully!');
         setTimeout(() => navigate('/login'), 1200);
 

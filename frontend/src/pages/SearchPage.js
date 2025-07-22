@@ -25,7 +25,7 @@ const SearchPage = () => {
         const token = localStorage.getItem("token");
         const orgId = localStorage.getItem("orgId");
 
-        const res = await axios.get(`http://localhost:9090/stackoverflow/questions/search`, {
+        const res = await axios.get(`${process.env.REACT_APP_API_BASE_URL}/stackoverflow/questions/search`, {
           params: { query, organisationId: Number(orgId)},
           headers: { Authorization: `Bearer ${token}` },
         });

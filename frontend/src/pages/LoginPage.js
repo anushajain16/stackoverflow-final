@@ -26,7 +26,7 @@ export default function LoginPage() {
         password: globalPassword
         };
 
-        const response = await axios.post('http://localhost:9090/stackoverflow/login', loginPayload);
+        const response = await axios.post(`${process.env.REACT_APP_API_BASE_URL}/stackoverflow/login`, loginPayload);
 
         const { token, role, orgId, userId, name } = response.data;
 
@@ -61,7 +61,7 @@ export default function LoginPage() {
       password: orgPassword,
     };
 
-    const response = await axios.post('http://localhost:9090/stackoverflow/login', loginPayload);
+    const response = await axios.post(`${process.env.REACT_APP_API_BASE_URL}/stackoverflow/login`, loginPayload);
     const { token, role, orgId, userId, name } = response.data;
 
     localStorage.setItem('token', token);

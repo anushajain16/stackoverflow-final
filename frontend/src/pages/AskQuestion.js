@@ -72,7 +72,7 @@ const postQuestion = async (e) => {
     setLoading(true)
 
     await axios.post(
-      "http://localhost:9090/stackoverflow/submit-question",
+      `${process.env.REACT_APP_API_BASE_URL}/stackoverflow/submit-question`,
       payload,
       { headers: { Authorization: `Bearer ${token}` } }
     )
