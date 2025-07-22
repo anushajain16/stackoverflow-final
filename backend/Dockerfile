@@ -1,13 +1,29 @@
-# Use Eclipse Temurin base image with Java 21
-FROM eclipse-temurin:21-jdk
+# --- Stage 1: Build the application using Maven ---
+FROM maven:3.8.5-eclipse-temurin-21 AS build
 
-# Set working directory inside the container
+# Set working directory for build
 WORKDIR /app
 
-# Copy the JAR file built from Maven into the container
-COPY backend/target/stackoverflow-0.0.1-SNAPSHOT.jar app.jar
+# Copy pom.xml and download dependencies
+COPY backend/pom.xml .
+RUN mvn dependency:go-offline
 
-# Expose port for local testing (Railway uses $PORT)
+# Copy source code
+COPY backend/src ./src
+
+# Package the application
+RUN mvn clean package -DskipTests
+
+# --- Stage 2: Run the application ---
+FROM eclipse-temurin:21-jdk
+
+# Set working directory for runtime
+WORKDIR /app
+
+# Copy the JAR from the build stage
+COPY --from=build /app/target/*.jar app.jar
+
+# Expose port (make sure this matches your Spring Boot server.port)
 EXPOSE 9090
 
 # Start the Spring Boot application
