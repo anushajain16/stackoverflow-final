@@ -32,16 +32,13 @@ export function AdminQuestions() {
     const fetchQuestions = async () => {
         try {
         const token = localStorage.getItem("token")
-        
         const orgId = localStorage.getItem("orgId")
         const response = await axios.get(`${process.env.REACT_APP_API_BASE_URL}/stackoverflow/questions/${orgId}`, {
             headers: { Authorization: `Bearer ${token}` },
         })
-        setQuestions(response.data)
+          setQuestions(response.data)
         } catch (err) {
-        setError("Failed to load users.")
-        } finally {
-        setLoading(false)
+          console.error("Failed to load users.")
         }
     }
 

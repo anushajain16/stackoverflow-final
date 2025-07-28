@@ -5,54 +5,51 @@ import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from ".
 import { useState, useEffect } from "react"
 import axios from "axios"
 
-
 const AdminHome = () => {
   const [users, setUsers] = useState([]);
-  const [loading, setLoading] = useState(true)
-  const [error, setError] = useState(null)
-  const [query, setQuery] = useState("")
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
 
   const fetchUsers = async () => {
     try {
-      const token = localStorage.getItem("token")
-      const userId = localStorage.getItem("userId")
-      const orgId = localStorage.getItem("orgId")
+      const token = localStorage.getItem("token");
+      const userId = localStorage.getItem("userId");
+      const orgId = localStorage.getItem("orgId");
       const response = await axios.get(`${process.env.REACT_APP_API_BASE_URL}/stackoverflow/admin/user`, {
         params: { userId: userId, organisationId: orgId },
         headers: { Authorization: `Bearer ${token}` },
-      })
-      setUsers(response.data)
+      });
+      setUsers(response.data);
     } catch (err) {
-      setError("Failed to load users.")
+      setError("Failed to load users.");
     } finally {
-      setLoading(false)
+      setLoading(false);
     }
-  }
+  };
 
   const handleSearch = async (text) => {
-    setQuery(text)
-    const token = localStorage.getItem("token")
-    const orgId = localStorage.getItem("orgId")
+    const token = localStorage.getItem("token");
+    const orgId = localStorage.getItem("orgId");
+
     if (text.trim() === "") {
-      fetchUsers() // if query is empty, reload all users
-      return
+      fetchUsers(); 
+      return;
     }
+
     try {
       const response = await axios.get(`${process.env.REACT_APP_API_BASE_URL}/stackoverflow/admin/user/search`, {
         params: { query: text, organisationId: orgId },
         headers: { Authorization: `Bearer ${token}` },
-      })
-      setUsers(response.data)
+      });
+      setUsers(response.data);
     } catch (err) {
-      setError("Search failed.")
+      setError("Search failed.");
     }
-  }
+  };
 
   useEffect(() => {
-    fetchUsers()
-  }, [])
-
-
+    fetchUsers();
+  }, []);
 
   return (
     <div className="flex flex-col w-full bg-global-2">
@@ -99,7 +96,7 @@ const AdminHome = () => {
         </main>
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default AdminHome
+export default AdminHome;
