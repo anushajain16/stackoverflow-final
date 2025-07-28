@@ -17,6 +17,8 @@ const Home = () => {
   const tabs = ['Newest', 'Unanswered','Ask Question', 'My Questions',];
   const [questions, setQuestions] = useState([]);
   const [allQuestions, setAllQuestions] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
   const name = localStorage.getItem('name');
   
   const fetchQuestions = async () => {
