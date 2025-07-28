@@ -6,6 +6,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
 
 import com.anusha.stackoverflow.Models.Answer;
+import com.anusha.stackoverflow.Models.AnswerRequest;
 import com.anusha.stackoverflow.Models.AnswerVote;
 import com.anusha.stackoverflow.Models.Questions;
 import com.anusha.stackoverflow.Models.Users;
@@ -29,25 +30,22 @@ public class AnswerService {
     @Autowired 
     private AnswerVoteRepository ansVoteRepo;
 
-    public void postAnswer(Answer answer) {
+    public void postAnswer(AnswerRequest request) {
+        Answer answer = new Answer();
+        answer.setBody(request.getBody());
         answer.setDeleted(false);
         answer.setCreatedAt(LocalDateTime.now());
         answer.setUpdatedAt(LocalDateTime.now());
 
-        int userId = answer.getUser().getId();
-        int questionId = answer.getQuestions().getId();
-
-        
-        Users user = userRepo.findById(userId);
-        Questions question = queRepo.findById(questionId).orElseThrow(()->new RuntimeException("Question not found"));
-        System.out.println("Saving answer with body: " + answer.getBody());
-
-        System.out.println("Received body: " + answer.getBody());
+        Users user = userRepo.findById(request.getUserId());
+        Questions question = queRepo.findById(request.getQuestionId())
+            .orElseThrow(() -> new RuntimeException("Question not found"));
 
         answer.setUser(user);
         answer.setQuestions(question);
-        answer.setDownvotes(0);
         answer.setUpvotes(0);
+        answer.setDownvotes(0);
+
         ansRepo.save(answer);
     }
 

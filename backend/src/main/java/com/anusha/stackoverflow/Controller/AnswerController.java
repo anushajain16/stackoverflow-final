@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.anusha.stackoverflow.Models.Answer;
+import com.anusha.stackoverflow.Models.AnswerRequest;
 import com.anusha.stackoverflow.Models.Questions;
 import com.anusha.stackoverflow.Services.AnswerService;
 
@@ -25,12 +26,13 @@ public class AnswerController {
     @Autowired
     private AnswerService service;
     
-    @PostMapping("/answer")
-    private ResponseEntity<?> postAnswer(@RequestBody Answer answer){
-        System.out.println("Received body: " + answer.getBody());
-        service.postAnswer(answer);
+   @PostMapping("/answer")
+    private ResponseEntity<?> postAnswer(@RequestBody AnswerRequest answerRequest){
+        System.out.println("Received body: " + answerRequest.getBody());
+        service.postAnswer(answerRequest); 
         return ResponseEntity.ok("Answer posted successfully");
     }
+
 
     @GetMapping("/answer/{id}")
     private ResponseEntity<Questions> getQuestionWithAnswers(@PathVariable("id") int id) {
