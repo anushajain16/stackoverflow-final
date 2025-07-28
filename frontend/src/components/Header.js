@@ -8,7 +8,7 @@ import { useEffect } from 'react';
 const Header = () => {
   const navigate = useNavigate();
   const [isLogin, setIsLogin] = useState(false);
-  const token = localStorage.getItem("token")
+  
 
   useEffect(() => {
     const token = localStorage.getItem("token");

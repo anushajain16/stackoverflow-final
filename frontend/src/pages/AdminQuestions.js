@@ -1,4 +1,4 @@
-import { useState, useMemo } from "react"
+import { useState} from "react"
 import SearchView from "../ui/SearchView"
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "../ui/Table"
 import AdminHeader from "../components/AdminHeader"
@@ -26,13 +26,10 @@ export function AdminQuestions() {
   const [sortBy, setSortBy] = useState("createdOn")
     const [sortOrder, setSortOrder] = useState("desc")
     const[questions, setQuestions] = useState([])
-    const [error,setError] = useState(null)
-    const[loading,setLoading] = useState(true)
 
     const fetchQuestions = async () => {
         try {
         const token = localStorage.getItem("token")
-        const userId = localStorage.getItem("userId")
         const orgId = localStorage.getItem("orgId")
         const response = await axios.get(`${process.env.REACT_APP_API_BASE_URL}/stackoverflow/questions/${orgId}`, {
             headers: { Authorization: `Bearer ${token}` },

@@ -1,7 +1,7 @@
 
 import que from '../images/img_icon.svg'
 //import tag from '../images/img_label.svg'
-import badge from '../images/img_star.svg'
+
 import save from '../images/img_bookmark.svg'
 import account from '../images/img_user.svg'
 
@@ -10,7 +10,7 @@ import gaming from '../images/img_playstation_charge1.svg'
 import movie from '../images/img_video_camera.svg'
 import cat from '../images/img_dashboard_4.svg'
 import { useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 
 const SideBar = () => {
   const [activeMenuItem, setActiveMenuItem] = useState('Questions');
@@ -33,13 +33,13 @@ const SideBar = () => {
   
   const handleMenuClick = (menuName) => {
     setActiveMenuItem(menuName);
-    if(menuName=='Questions'){
+    if(menuName==='Questions'){
       navigate(`/${orgId}`)
     }
-    if(menuName=='Saves'){
+    if(menuName==='Saves'){
       navigate("/saved")
     }
-    if(menuName=='My Account'){
+    if(menuName==='My Account'){
       navigate("/myaccount")
     }
     console.log('Menu clicked:', menuName);

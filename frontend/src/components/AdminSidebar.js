@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Users, HelpCircle, BarChart3, FileText } from "lucide-react";
+import { Users, HelpCircle, BarChart3} from "lucide-react";
 import { useNavigate } from 'react-router-dom';
 
 const AdminSidebar = () => {

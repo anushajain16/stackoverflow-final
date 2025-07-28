@@ -13,7 +13,6 @@ export default function QuestionsPage() {
   const [searchParams] = useSearchParams();
   const category = searchParams.get("cat");
   const [questions, setQuestions] = useState([]);
-  const [error, setError] = useState(null);
   const navigate = useNavigate();
 
   useEffect(() => {

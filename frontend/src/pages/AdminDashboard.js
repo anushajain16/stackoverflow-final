@@ -204,9 +204,4 @@ function capitalize(str) {
   return str.charAt(0).toUpperCase() + str.slice(1).toLowerCase()
 }
 
-function getProgress(value, data) {
-  const max = Math.max(...Object.values(data))
-  return (value / max) * 100
-}
-
 export default AdminDashboard

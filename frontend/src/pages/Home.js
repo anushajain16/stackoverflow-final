@@ -17,8 +17,6 @@ const Home = () => {
   const tabs = ['Newest', 'Unanswered','Ask Question', 'My Questions',];
   const [questions, setQuestions] = useState([]);
   const [allQuestions, setAllQuestions] = useState([]);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
   const name = localStorage.getItem('name');
   
   const fetchQuestions = async () => {
@@ -50,9 +48,9 @@ const Home = () => {
     setQuestions(filtered);
   } else if (activeTab === "My Questions") {
     const userId = localStorage.getItem("userId");
-    const filtered = allQuestions.filter(q => q.user.id == userId);
+    const filtered = allQuestions.filter(q => q.user.id === userId);
     setQuestions(filtered);
-  } else if(activeTab==="Ask Question"){
+  } else if(activeTab === "Ask Question"){
     navigate("../ask")
   }
    else {

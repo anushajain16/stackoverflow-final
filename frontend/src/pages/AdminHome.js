@@ -4,13 +4,12 @@ import SearchView from "../ui/SearchView"
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "../ui/Table"
 import { useState, useEffect } from "react"
 import axios from "axios"
-import Button from "../ui/Button"
+
 
 const AdminHome = () => {
   const [users, setUsers] = useState([]);
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState(null)
-  const [query, setQuery] = useState("")
 
   const fetchUsers = async () => {
     try {

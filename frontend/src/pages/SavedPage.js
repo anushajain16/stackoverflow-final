@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react";
-import { useSearchParams } from "react-router-dom";
 import axios from "axios";
 import Header from "../components/Header";
 import Sidebar from "../components/SideBar";
