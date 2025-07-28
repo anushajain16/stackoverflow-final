@@ -1,5 +1,6 @@
 package com.anusha.stackoverflow.Services;
 
+import java.security.Principal;
 import java.time.LocalDateTime;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
@@ -30,14 +31,20 @@ public class AnswerService {
     @Autowired 
     private AnswerVoteRepository ansVoteRepo;
 
-    public void postAnswer(AnswerRequest request) {
+    public void postAnswer(AnswerRequest request, Principal principal) {
         Answer answer = new Answer();
         answer.setBody(request.getBody());
         answer.setDeleted(false);
         answer.setCreatedAt(LocalDateTime.now());
         answer.setUpdatedAt(LocalDateTime.now());
 
-        Users user = userRepo.findById(request.getUserId());
+        
+        String email = principal.getName();
+        Users user = userRepo.findByEmail(email);
+        if (user == null) {
+            throw new RuntimeException("User not found");
+        }
+
         Questions question = queRepo.findById(request.getQuestionId())
             .orElseThrow(() -> new RuntimeException("Question not found"));
 

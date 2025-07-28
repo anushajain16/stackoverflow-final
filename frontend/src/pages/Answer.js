@@ -50,9 +50,8 @@ export default function Answer() {
       const token = localStorage.getItem("token")
       await axios.post(
         `${process.env.REACT_APP_API_BASE_URL}/stackoverflow/answer`,
-        {  body: answer,                      
-        user: { id: userId },              
-        questions: { id: Number(id) } },
+        {  body: answer,                            
+        questionId: Number(id)},
         { headers: { Authorization: `Bearer ${token}` } }
       )
       setAnswer("")

@@ -7,6 +7,5 @@ import lombok.Setter;
 @Setter
 public class AnswerRequest {
    private String body;
-    private int userId;
     private int questionId; 
 }

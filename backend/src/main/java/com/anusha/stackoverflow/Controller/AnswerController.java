@@ -1,5 +1,7 @@
 package com.anusha.stackoverflow.Controller;
 
+import java.security.Principal;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -27,9 +29,8 @@ public class AnswerController {
     private AnswerService service;
     
    @PostMapping("/answer")
-    private ResponseEntity<?> postAnswer(@RequestBody AnswerRequest answerRequest){
-        System.out.println("Received body: " + answerRequest.getBody());
-        service.postAnswer(answerRequest); 
+    private ResponseEntity<?> postAnswer(@RequestBody AnswerRequest request, Principal principal) {
+        service.postAnswer(request, principal);
         return ResponseEntity.ok("Answer posted successfully");
     }
 
