@@ -11,6 +11,7 @@ import org.springframework.web.server.ResponseStatusException;
 import java.util.*;
 import org.springframework.security.core.Authentication;
 import com.anusha.stackoverflow.Models.Organisation;
+import com.anusha.stackoverflow.Models.QuestionRequest;
 import com.anusha.stackoverflow.Models.QuestionTag;
 import com.anusha.stackoverflow.Models.QuestionVote;
 import com.anusha.stackoverflow.Models.Questions;
@@ -175,27 +176,37 @@ public class QuestionService {
     }
 
     @Transactional
-    public Questions submitQuestionWithTags(Questions question) {
-        List<QuestionTag> newQuestionTags = new ArrayList<>();
+    public Questions submitQuestionWithTags(QuestionRequest request) {
+        Questions question = new Questions();
+        question.setTitle(request.getTitle());
+        question.setBody(request.getBody());
+        
+        try {
+            Cat categoryEnum = Cat.valueOf(request.getCategory().toUpperCase());
+            question.setCat(categoryEnum);
+        } catch (IllegalArgumentException e) {
+            throw new RuntimeException("Invalid category: " + request.getCategory());
+        }
 
-        for (QuestionTag qt : question.getQuestionTags()) {
-            String tagName = qt.getTag().getName().trim().toLowerCase();
+        List<QuestionTag> questionTags = new ArrayList<>();
 
-            // Check if tag exists, else create it
-            Tags tag = tagRepo.findByName(tagName);
+        for (String tagName : request.getTags()) {
+            String cleanTagName = tagName.trim().toLowerCase();
+
+            Tags tag = tagRepo.findByName(cleanTagName);
             if (tag == null) {
                 tag = new Tags();
-                tag.setName(tagName);
+                tag.setName(cleanTagName);
                 tagRepo.save(tag);
             }
 
-            // Reuse tag and assign to QuestionTag
+            QuestionTag qt = new QuestionTag();
             qt.setTag(tag);
             qt.setQuestion(question);
-            newQuestionTags.add(qt);
+            questionTags.add(qt);
         }
 
-        question.setQuestionTags(newQuestionTags);
+        question.setQuestionTags(questionTags);
         return queRepo.save(question);
     }
 

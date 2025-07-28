@@ -14,6 +14,7 @@ import SearchPage from './pages/SearchPage';
 import AdminHome from './pages/AdminHome';
 import { AdminQuestions } from './pages/AdminQuestions';
 import AdminDashboard from './pages/AdminDashboard';
+import Welcome from './pages/Welcome';
 
 function App() {
   const orgId = localStorage.getItem('orgId');
@@ -23,7 +24,7 @@ function App() {
       <BrowserRouter>
         <Routes>
           <Route path={`/${orgId}`} element={<Home/>}></Route> 
-          <Route path={'/'} element={<Home/>}></Route>
+          <Route path={'/'} element={<Welcome/>}></Route>
           <Route path={'/login'} element={<LoginPage/>}></Route>
           <Route path={'/signup'} element={<SignupPage/>}></Route>
           <Route path={'/answer/:id'} element={<Answer/>}></Route>

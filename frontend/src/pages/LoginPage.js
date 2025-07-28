@@ -45,7 +45,7 @@ export default function LoginPage() {
         } else {
             navigate('/');
         }
-        }, 1200);
+        }, 200);
     } catch (error) {
         const errMsg = error.response?.data || 'Login failed.';
         setMessage(errMsg);

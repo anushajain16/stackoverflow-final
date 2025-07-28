@@ -49,8 +49,6 @@ const postQuestion = async (e) => {
   e.preventDefault()
 
   const token = localStorage.getItem("token")
-  const userId = localStorage.getItem("userId")
-  const orgId = localStorage.getItem("orgId")
 
   if (!title.trim() || !body.trim() || tags.length === 0) {
     alert("Please fill all required fields.")
@@ -60,12 +58,8 @@ const postQuestion = async (e) => {
   const payload = {
     title,
     body,
-    user: { id: Number(userId) },
-    organisation: { id: Number(orgId) },
-    cat: category.toUpperCase(),
-    questionTags: tags.map((tagName) => ({
-      tag: { name: tagName.trim().toLowerCase() }
-    }))
+    tags: tags.map((tag) => tag.trim().toLowerCase()),
+    category: category.trim().toUpperCase()
   }
 
   try {
@@ -79,7 +73,7 @@ const postQuestion = async (e) => {
 
     alert("Question and tags submitted successfully!")
 
-    // Reset
+    // Reset form
     setTitle("")
     setBody("")
     setCategory("General")

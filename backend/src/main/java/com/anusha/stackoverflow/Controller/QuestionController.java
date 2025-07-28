@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.anusha.stackoverflow.Models.QuestionRequest;
 import com.anusha.stackoverflow.Models.Questions;
 import com.anusha.stackoverflow.Models.enums.Cat;
 import com.anusha.stackoverflow.Repository.QuestionsRepository;
@@ -102,9 +103,9 @@ public class QuestionController {
     }
 
     @PostMapping("/submit-question")
-    public ResponseEntity<?> submitQuestionWithTags(@RequestBody Questions question) {
-        Questions savedQuestion = service.submitQuestionWithTags(question);
-        return ResponseEntity.ok(savedQuestion);
+    public ResponseEntity<?> submitQuestionWithTags(@RequestBody QuestionRequest request) {
+        Questions question = service.submitQuestionWithTags(request);
+        return ResponseEntity.ok(question);
     }
 
     @GetMapping("/questions/search")
