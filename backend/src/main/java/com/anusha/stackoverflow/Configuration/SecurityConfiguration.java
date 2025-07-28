@@ -56,7 +56,7 @@ public class SecurityConfiguration {
         @Override
         public void addCorsMappings(CorsRegistry registry) {
             registry.addMapping("/**") // allow all endpoints
-                    .allowedOrigins("http://localhost:3000, https://gorgeous-cactus-55a905.netlify.app/") // allow frontend origin
+                    .allowedOrigins("http://localhost:3000, https://gorgeous-cactus-55a905.netlify.app/, https://dashing-strudel-e131c2.netlify.app/") // allow frontend origin
                     .allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS") // allow methods
                     .allowedHeaders("*") // allow all headers
                     .allowCredentials(true); // allow cookies/auth headers
