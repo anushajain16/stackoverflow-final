@@ -74,8 +74,8 @@ public class QuestionService {
         questions.setViews(0);
         
         
-        Users user = repo.findById(userId);
-        Organisation organisation = orgRepo.findById(orgId);
+        Users user = repo.findById(userId).orElseThrow(() -> new RuntimeException("User not found with ID"));
+        Organisation organisation = orgRepo.findById(orgId).orElseThrow(() -> new RuntimeException("Organisation not found with ID"));
 
         questions.setUser(user);
         questions.setOrganisation(organisation);
@@ -150,7 +150,7 @@ public class QuestionService {
 
     public void voteQuestion(int id, int vote, int userId){
         Questions questions = queRepo.findById(id).orElseThrow(()->new RuntimeException("Question not found"));
-        Users user = userRepo.findById(userId);
+        Users user = userRepo.findById(userId).orElseThrow(() -> new RuntimeException("User not found with ID"));
 
         QuestionVote existing = queVoteRepo.findByQuestionAndUser(questions, user);
         if(existing!=null){
@@ -180,6 +180,7 @@ public class QuestionService {
         Questions question = new Questions();
         question.setTitle(request.getTitle());
         question.setBody(request.getBody());
+
         
         try {
             Cat categoryEnum = Cat.valueOf(request.getCategory().toUpperCase());
@@ -188,8 +189,18 @@ public class QuestionService {
             throw new RuntimeException("Invalid category: " + request.getCategory());
         }
 
-        List<QuestionTag> questionTags = new ArrayList<>();
+        
+        Users user = userRepo.findById(request.getUserId())
+                .orElseThrow(() -> new RuntimeException("User not found with ID: " + request.getUserId()));
+        question.setUser(user);
 
+        
+        Organisation org = orgRepo.findById(request.getOrganisationId())
+                .orElseThrow(() -> new RuntimeException("Organisation not found with ID: " + request.getOrganisationId()));
+        question.setOrganisation(org);
+
+        // Handle tags
+        List<QuestionTag> questionTags = new ArrayList<>();
         for (String tagName : request.getTags()) {
             String cleanTagName = tagName.trim().toLowerCase();
 
@@ -207,8 +218,10 @@ public class QuestionService {
         }
 
         question.setQuestionTags(questionTags);
+
         return queRepo.save(question);
     }
+
 
     public List<Questions> searchQuestions(String keyword, int organisationId) {
         return queRepo.searchByKeywordAndOrg(keyword, organisationId);

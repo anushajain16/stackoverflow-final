@@ -1,6 +1,7 @@
 package com.anusha.stackoverflow.Repository;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -14,7 +15,7 @@ public interface UserRepository extends JpaRepository<Users,Integer>{
     Users findByEmail(String email);
     boolean existsByName(String name);
     boolean existsByEmail(String email);
-    Users findById(int id);
+    Optional<Users> findById(int id);
     List<Users> findByOrganisationIdAndRole(int organisationId, Role role);
     Users getUserById(int id);
     

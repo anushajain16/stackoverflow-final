@@ -85,7 +85,7 @@ public class AnswerService {
 
     public void voteAnswer(int id, int vote, int userId){
         Answer ans = ansRepo.findById(id);
-        Users user = userRepo.findById(userId);
+        Users user = userRepo.findById(userId).orElseThrow(() -> new RuntimeException("User not found with ID"));
 
         AnswerVote existing = ansVoteRepo.findByAnswerAndUser(ans, user);
         if(existing!=null){

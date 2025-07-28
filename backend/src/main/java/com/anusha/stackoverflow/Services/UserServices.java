@@ -45,7 +45,7 @@ public class UserServices {
         int orgId = user.getOrganisation().getId();
         String userEmail = user.getEmail();
 
-        Organisation organisation = orgRepo.findById(orgId);
+        Organisation organisation = orgRepo.findById(orgId).orElseThrow(() -> new RuntimeException("Organisation not found with ID: "));;
 
         if (repo.existsByEmail(userEmail)) {
             throw new IllegalArgumentException("Email already exists");

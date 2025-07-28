@@ -56,6 +56,8 @@ const postQuestion = async (e) => {
   }
 
   const payload = {
+    userId: parseInt(localStorage.getItem("userId")), 
+    organisationId: parseInt(localStorage.getItem("orgId")), 
     title,
     body,
     tags: tags.map((tag) => tag.trim().toLowerCase()),
